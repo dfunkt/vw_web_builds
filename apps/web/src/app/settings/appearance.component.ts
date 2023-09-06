@@ -35,7 +35,7 @@ export class AppearanceComponent implements OnInit {
 
   readonly form = this.formBuilder.group({
     enableFavicons: true,
-    theme: [ThemeTypes.Light as Theme],
+    theme: [ThemeTypes.System as Theme],
     locale: [null as string | null],
   });
 
