@@ -12,6 +12,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png" />
     <link rel="mask-icon" href="images/icons/safari-pinned-tab.svg" color="#175DDC" />
     <link rel="manifest" href="manifest.json" />
+    <style>
+      @media (prefers-color-scheme: dark) {
+        html:not([lang]) .tw-text-muted {
+          color: rgb(136, 152, 181) !important;
+        }
+        html:not([lang]) body.layout_frontend {
+          background-color: rgb(18, 26, 39) !important;
+        }
+        html:not([lang]) img.new-logo-themed {
+          content: url("images/logo-white.svg") !important;
+        }
+      }
+    </style>
   </head>
   <body class="layout_frontend">
     <!-- webpackIgnore: true -->
