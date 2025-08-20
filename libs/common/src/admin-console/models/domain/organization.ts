@@ -390,19 +390,8 @@ export class Organization {
     });
   }
 
-  get canAccessIntegrations() {
-    return false; // disable integrations for Vaultwarden
-    return (
-      (this.productTierType === ProductTierType.Teams ||
-        this.productTierType === ProductTierType.Enterprise) &&
-      (this.isAdmin ||
-        this.permissions.manageUsers ||
-        this.permissions.manageGroups ||
-        this.permissions.accessEventLogs)
-    );
-  }
-
   get canUseAccessIntelligence() {
+    return false; // disable Access Intelligence for Vaultwarden
     return this.productTierType === ProductTierType.Enterprise;
   }
 }
