@@ -1,0 +1,41 @@
+name: Build CLI
+permissions: {}
+
+on:
+  push:
+    branches:
+      - build-cli
+
+jobs:
+  build_and_package:
+    runs-on: ${{ contains(matrix.arch, 'arm') && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+
+    strategy:
+      matrix:
+        arch: ["lin", "lin-arm64"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Use Node.js
+        uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # v6.2.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CLI
+        env:
+          MATRIX_ARCH: ${{ matrix.arch }}
+        run: npm run dist:oss:${MATRIX_ARCH} --quiet
+        working-directory: apps/cli
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: bw-${{ matrix.arch }}
+          path: apps/cli/dist/oss/*/bw
